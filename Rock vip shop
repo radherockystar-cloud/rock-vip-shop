@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rock VIP Shop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body style="font-family: Arial; text-align:center; background:#f2f2f2; padding:20px;">
+
+<h1>🔥 Rock VIP Shop</h1>
+<p>Affiliate Store + Linktree Style 🚀</p>
+
+<!-- Buttons -->
+<a href="https://instagram.com" target="_blank">
+  <button style="padding:10px 20px; margin:5px; background:#E1306C; color:white; border:none; border-radius:8px;">
+    Instagram
+  </button>
+</a>
+
+<a href="https://wa.me/1234567890" target="_blank">
+  <button style="padding:10px 20px; margin:5px; background:#25D366; color:white; border:none; border-radius:8px;">
+    WhatsApp
+  </button>
+</a>
+
+<hr>
+
+<!-- 🔥 PRODUCT FORM -->
+<h2>➕ Add Product</h2>
+
+<input id="pname" placeholder="Product Name"><br><br>
+<input id="pprice" placeholder="Price"><br><br>
+<input id="pimg" placeholder="Image URL"><br><br>
+<input id="plink" placeholder="Affiliate Link"><br><br>
+
+<button onclick="addProduct()" style="padding:10px 20px; background:blue; color:white; border:none; border-radius:8px;">
+  Add Product
+</button>
+
+<hr>
+
+<h2>🛍️ Products</h2>
+<div id="products"></div>
+
+<!-- 🔥 SCRIPT (NO NEED TO TOUCH AGAIN) -->
+<script>
+function addProduct() {
+  let name = document.getElementById("pname").value;
+  let price = document.getElementById("pprice").value;
+  let img = document.getElementById("pimg").value;
+  let link = document.getElementById("plink").value;
+
+  let product = { name, price, img, link };
+
+  let old = JSON.parse(localStorage.getItem("products")) || [];
+  old.push(product);
+  localStorage.setItem("products", JSON.stringify(old));
+
+  showProducts();
+}
+
+function showProducts() {
+  let products = JSON.parse(localStorage.getItem("products")) || [];
+  let box = "";
+
+  products.forEach(p => {
+    box += `
+      <div style="background:white; padding:15px; margin:10px; border-radius:10px; display:inline-block; width:200px;">
+        <img src="${p.img}" width="150"><br>
+        <h3>${p.name}</h3>
+        <p>₹${p.price}</p>
+        <a href="${p.link}" target="_blank">
+          <button style="padding:8px 15px; background:black; color:white; border:none; border-radius:5px;">
+            Buy Now
+          </button>
+        </a>
+      </div>
+    `;
+  });
+
+  document.getElementById("products").innerHTML = box;
+}
+
+window.onload = showProducts;
+</script>
+
+</body>
+</html>
